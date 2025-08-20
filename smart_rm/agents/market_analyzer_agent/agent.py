@@ -82,7 +82,7 @@ def test_models():
     messages = chat.get_messages()
 
     # Call API
-    response = call_llm_api(messages, "gemini-2.5-pro-(US)")
+    response = call_llm_api(messages, "gpt-4.1-(US)")
 
     if response:
         print("\nAI Response:")
