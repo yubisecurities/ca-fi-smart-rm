@@ -15,7 +15,7 @@ headers = {
   'Content-Type': 'application/json',
   'Authorization': os.getenv('B2B2C_API_KEY'),
   'Current-Entity-Id': os.getenv('B2B2C_API_ENTITY'),
-  'channel': os.getenv('B2B2C_API_ENTITY'),
+  'channel': os.getenv('B2B2C_API_CHANNEL'),
   'Current-Group': 'distributor',
   'If-None-Match': 'W/"d5716186ee4ba7a4165f3c8af21061f0"',
   'Sec-Fetch-Dest': 'empty',
@@ -28,8 +28,12 @@ headers = {
   'sec-ch-ua-platform': '"macOS"'
 }
 
-print("b2b2c headers", headers)
-
 def get_current_listings():
+
+  print(f"Calling Listings {url}", headers)
   response = requests.request("GET", url, headers=headers, data=payload)
-  return response.text
+  if response.status_code == 200:
+    return response.text
+  else:
+    print("Failed to fetch data. Status code:", response.status_code, response.content)
+    return None

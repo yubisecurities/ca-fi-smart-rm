@@ -79,9 +79,9 @@ def test_models():
 
     # Set system prompt
     chat.add_system_prompt(market_analyzer_agent_prompt)
-    chat.add_system_prompt(f"Today's Nifty 50 JSON data -> {get_stock_index("NIFTY 50")}")
     chat.add_system_prompt(f"The available bonds in our platforms json -> {get_current_listings()}")
-    chat.set_user_prompt("I am an aggressive investor, ready to dip into risks into indian bonds. Risk Edukurathu ellam Rusk saapudura maari!")
+    chat.add_system_prompt(f"Today's Nifty 50 JSON data -> {get_stock_index("NIFTY 50")}")
+    chat.set_user_prompt("The client is an safe investor, ready to dip into low risk into indian bonds. Coolie Power House maa!!!")
 
     # Get messages
     messages = chat.get_messages()

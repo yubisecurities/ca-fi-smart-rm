@@ -24,11 +24,10 @@ def get_nse_data(quote_type, symbol_query, symbol):
     print(f"Calling NSE {url}")
     response = session.get(url, headers=headers, verify=False)
     if response.status_code == 200:
-        data = response.text
-        return data
+      return response.text
     else:
-        print("Failed to fetch data. Status code:", response.status_code, response.content)
-        return None
+      print("Failed to fetch data. Status code:", response.status_code, response.content)
+      return None
 
 def get_stock_index(symbol):
   return get_nse_data('equity-stockIndices', 'index', symbol)
