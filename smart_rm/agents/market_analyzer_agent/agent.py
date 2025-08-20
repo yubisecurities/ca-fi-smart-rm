@@ -6,6 +6,8 @@ import os
 from dotenv import load_dotenv
 
 from prompt import market_analyzer_agent_prompt
+from helpers.nse import get_stock_index, get_stock
+from helpers.listings import get_current_listings
 
 load_dotenv()
 
@@ -17,19 +19,21 @@ API_KEY = os.getenv('API_KEY')
 
 class ChatPrompt:
     def __init__(self):
-        self.system_prompt = ""
         self.user_prompt = ""
-    
-    def set_system_prompt(self, prompt: str):
-        self.system_prompt = prompt
+        self.system_prompts = []
+
+    def add_system_prompt(self, prompt: str):
+        self.system_prompts.append(prompt)
         
     def set_user_prompt(self, prompt: str):
         self.user_prompt = prompt
         
     def get_messages(self):
         messages = []
-        if self.system_prompt:
-            messages.append({"role": "system", "content": self.system_prompt})
+        
+        for prompt in self.system_prompts:
+            messages.append({"role": "system", "content": prompt})
+
         messages.append({"role": "user", "content": self.user_prompt})
         return messages
 
@@ -44,7 +48,7 @@ def call_llm_api(messages, model="llama-3.3-70b-(US)"):
             "messages": messages
         }
 
-        print(f"\nCalling LLM api with data: {json.dumps(data, indent=2)}")
+        # print(f"\nCalling LLM api with data: {json.dumps(data, indent=2)}")
         
         # Add timeout to prevent hanging
         response = requests.post(API_URL, headers=headers, json=data, timeout=300000)
@@ -74,8 +78,9 @@ def test_models():
     chat = ChatPrompt()
 
     # Set system prompt
-    system_prompt = market_analyzer_agent_prompt
-    chat.set_system_prompt(system_prompt)
+    chat.add_system_prompt(market_analyzer_agent_prompt)
+    chat.add_system_prompt(f"Today's Nifty 50 JSON data -> {get_stock_index("NIFTY 50")}")
+    chat.add_system_prompt(f"The available bonds in our platforms json -> {get_current_listings()}")
     chat.set_user_prompt("I am an aggressive investor, ready to dip into risks into indian bonds. Risk Edukurathu ellam Rusk saapudura maari!")
 
     # Get messages

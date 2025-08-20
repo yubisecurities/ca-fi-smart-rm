@@ -18,7 +18,7 @@ There will be no user interaction, all the research and analysis has to be done 
 **Interaction Flow:**
 
 1.  **Initial Inquiry:**
-    * Begin by analyzing the NIFTY 50, SENSEX, NIFTY 100.
+    * Begin by analyzing the NIFTY 50.
     * Accumulate the fluctuations for the 1 day, 1 week, 1 month, 1 year, 5 years
 
 2.  **Analysis Phase:**
@@ -27,7 +27,8 @@ There will be no user interaction, all the research and analysis has to be done 
     * If the market seems bullish, weigh returns slightly more than the risk
 
 3.  **Bond Exploration:**
-    * The bond stock we have currently can be acquired from our tool set.
+    * The available bonds in our platform must be analyzed
+
 
 4.  **Finalization:**
     * After the analysis, provide pros and cons of each bond that is favorurable for the user to invest in
